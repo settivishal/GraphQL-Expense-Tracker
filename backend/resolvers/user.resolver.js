@@ -3,6 +3,7 @@ import { users } from "../Data/data.js";
 const userResolver = {
   Query: {
     users: () => users,
+    user: (_, { userId }) => users.find((user) => user._id === userId),
   },
   Mutation: {},
 };
