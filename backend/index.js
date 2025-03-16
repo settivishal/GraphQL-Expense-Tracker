@@ -1,10 +1,12 @@
 import { ApolloServer } from "@apollo/server";
-import { expressMiddleware } from "@apollo/server/express4";
 import { startStandaloneServer } from "@apollo/server/standalone";
 
+import mergedTypeDefs from "./typeDefs/index.js";
+import mergedResolvers from "./resolvers/index.js";
+
 const server = new ApolloServer({
-  typeDefs,
-  resolvers
+  typeDefs: mergedTypeDefs,
+  resolvers: mergedResolvers,
 });
 
 const { url } = await startStandaloneServer(server);
