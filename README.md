@@ -1,5 +1,3 @@
-# COPY && PASTE LIST IF YOU FOLLOW ALONG THE TUTORIAL
-
 # Backend Dependencies
 
 ```bash
