@@ -1,4 +1,4 @@
-const TransactionFormSkeleton = () => {
+export const TransactionFormSkeleton = () => {
   return (
     <div className="h-screen max-w-xl mx-auto py-10">
       <h3 className="h-6 bg-gray-200 rounded animate-pulse"></h3>
@@ -18,4 +18,3 @@ const TransactionFormSkeleton = () => {
     </div>
   );
 };
-export default TransactionFormSkeleton;
