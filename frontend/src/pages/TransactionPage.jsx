@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { GET_TRANSACTION } from "../graphql/queries/transaction.query";
 import { UPDATE_TRANSACTION } from "../graphql/mutations/transaction.mutation";
 import { TransactionFormSkeleton } from "../components/skeletons/TransactionFormSkeleton";
@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 
 const TransactionPage = () => {
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const { loading, data } = useQuery(GET_TRANSACTION, {
     variables: { transactionId: id },
@@ -55,6 +57,7 @@ const TransactionPage = () => {
       });
 
       toast.success("Transaction updated successfully!");
+      navigate("/");
     } catch (err) {
       console.error("Error in updating transaction: ", err);
       toast.error(err.message || "Internal server error");
