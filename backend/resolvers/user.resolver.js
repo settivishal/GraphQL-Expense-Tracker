@@ -35,7 +35,7 @@ const userResolver = {
 
         return newUser;
       } catch (err) {
-        console.error("Error in signUp: ", err);
+        console.error("Error in signing up: ", err);
         throw new Error(err.message || "Internal server error");
       }
     },

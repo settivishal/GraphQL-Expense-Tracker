@@ -17,7 +17,7 @@ function App() {
 
   console.log(loading, data, error);
 
-	if (loading) return null;
+  if (loading) return null;
 
   return (
     <>

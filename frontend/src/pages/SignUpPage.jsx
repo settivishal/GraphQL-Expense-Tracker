@@ -20,8 +20,18 @@ const SignUpPage = () => {
     refetchQueries: ["GetAuthenticatedUser"],
   });
 
-	const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      !signUpData.username ||
+      !signUpData.password ||
+      !signUpData.name ||
+      !signUpData.gender
+    ) {
+      toast.error("Please fill in all fields");
+    }
+
     try {
       await signup({
         variables: {
