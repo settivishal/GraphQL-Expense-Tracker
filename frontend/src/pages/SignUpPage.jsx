@@ -6,7 +6,7 @@ import RadioButton from "../components/RadioButton";
 import InputField from "../components/InputField";
 
 import { useMutation } from "@apollo/client";
-import SIGN_UP from "../graphql/mutations/user.mutation.js";
+import { SIGN_UP } from "../graphql/mutations/user.mutation.js";
 
 const SignUpPage = () => {
   const [signUpData, setSignUpData] = useState({
@@ -16,7 +16,9 @@ const SignUpPage = () => {
     gender: "",
   });
 
-  const [signup, { loading }] = useMutation(SIGN_UP);
+  const [signup, { loading }] = useMutation(SIGN_UP, {
+    refetchQueries: ["GetAuthenticatedUser"],
+  });
 
 	const handleSubmit = async (e) => {
     e.preventDefault();
