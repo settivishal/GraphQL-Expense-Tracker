@@ -13,9 +13,7 @@ import Header from "./components/ui/Header";
 import GET_AUTHENTICATED_USER from "./graphql/queries/user.query.js";
 
 function App() {
-  const { loading, data, error } = useQuery(GET_AUTHENTICATED_USER);
-
-  console.log(loading, data, error);
+  const { loading, data } = useQuery(GET_AUTHENTICATED_USER);
 
   if (loading) return null;
 

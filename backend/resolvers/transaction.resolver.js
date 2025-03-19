@@ -58,7 +58,7 @@ const transactionResolver = {
     },
     deleteTransaction: async (_, { transactionId }) => {
       try {
-        const deletedTransaction = await Transaction.findByIdAndDelet(
+        const deletedTransaction = await Transaction.findByIdAndDelete(
           transactionId
         );
 

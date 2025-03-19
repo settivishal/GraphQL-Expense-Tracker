@@ -7,6 +7,9 @@ import { HiPencilAlt } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 import { formatDate } from "../utils/formatDate";
+import { useMutation } from "@apollo/client";
+import { DELETE_TRANSACTION } from "../graphql/mutations/transaction.mutation";
+import toast from "react-hot-toast";
 
 const categoryColorMap = {
   saving: "from-green-700 to-green-400",
@@ -18,8 +21,11 @@ const categoryColorMap = {
 const Card = ({ transaction }) => {
   let { category, amount, location, date, paymentType, description } =
     transaction;
-
   const cardClass = categoryColorMap[category];
+
+  const [deleteTransaction, { loading }] = useMutation(DELETE_TRANSACTION, {
+    refetchQueries: ["GetTransactions"],
+  });
 
   description = description[0]?.toUpperCase() + description.slice(1);
   category = category[0]?.toUpperCase() + category.slice(1);
@@ -27,14 +33,34 @@ const Card = ({ transaction }) => {
 
   const formattedDate = formatDate(date);
 
+  const handleDelete = async () => {
+    try {
+      await deleteTransaction({
+        variables: {
+          transactionId: transaction._id,
+        },
+      });
+
+      toast.success("Transaction deleted successfully!");
+    } catch (err) {
+      console.error("Error deleting transaction: ", err);
+      toast.error(err.message || "Internal server error");
+    }
+  };
+
   return (
     <div className={`rounded-md p-4 bg-gradient-to-br ${cardClass}`}>
       <div className="flex flex-col gap-3">
         <div className="flex flex-row items-center justify-between">
           <h2 className="text-lg font-bold text-white">{category}</h2>
           <div className="flex items-center gap-2">
-            <FaTrash className={"cursor-pointer"} />
-            <Link to={`/transaction/123`}>
+            {!loading && (
+              <FaTrash className={"cursor-pointer"} onClick={handleDelete} />
+            )}
+            {loading && (
+              <div className="w-6 h-6 border-t-2 border-b-2 rounded-full animate-spin"></div>
+            )}
+            <Link to={`/transaction/${transaction._id}`}>
               <HiPencilAlt className="cursor-pointer" size={20} />
             </Link>
           </div>
