@@ -5,11 +5,12 @@ import { FaSackDollar } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import { HiPencilAlt } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import { formatDate } from "../utils/formatDate";
-import { useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { DELETE_TRANSACTION } from "../graphql/mutations/transaction.mutation";
-import toast from "react-hot-toast";
+import GET_AUTHENTICATED_USER from "../graphql/queries/user.query";
 
 const categoryColorMap = {
   saving: "from-green-700 to-green-400",
@@ -22,6 +23,8 @@ const Card = ({ transaction }) => {
   let { category, amount, location, date, paymentType, description } =
     transaction;
   const cardClass = categoryColorMap[category];
+
+  const {data: authUserData} = useQuery(GET_AUTHENTICATED_USER);
 
   const [deleteTransaction, { loading }] = useMutation(DELETE_TRANSACTION, {
     refetchQueries: ["GetTransactions", "GetTransactionStatistics"],
@@ -85,7 +88,7 @@ const Card = ({ transaction }) => {
         <div className="flex justify-between items-center">
           <p className="text-xs text-black font-bold">{formattedDate}</p>
           <img
-            src={"https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
+            src={authUserData?.authUser?.profilePicture}
             className="h-8 w-8 border rounded-full"
             alt=""
           />
