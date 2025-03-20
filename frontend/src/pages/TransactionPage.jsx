@@ -21,7 +21,7 @@ const TransactionPage = () => {
   const [updateTransaction, { loading: loadingUpdate }] = useMutation(
     UPDATE_TRANSACTION,
     {
-      refetchQueries: [{ queries: GET_TRANSACTION_STATISTICS }],
+      refetchQueries: [{ query: GET_TRANSACTION_STATISTICS }],
     }
   );
 
