@@ -18,7 +18,7 @@ const HomePage = () => {
   const { data } = useQuery(GET_TRANSACTION_STATISTICS);
   const { data: authUserData } = useQuery(GET_AUTHENTICATED_USER);
 
-  const [logout, { loading }] = useMutation(LOGOUT, {
+  const [logout, { loading, client }] = useMutation(LOGOUT, {
     refetchQueries: ["GetAuthenticatedUser"],
   });
 
@@ -78,6 +78,8 @@ const HomePage = () => {
   const handleLogout = async () => {
     try {
       await logout();
+
+      client.resetStore();
     } catch (err) {
       console.error("Error in logout: ", err);
       toast.error(err.message);
