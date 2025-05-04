@@ -27,7 +27,7 @@ const userResolver = {
           username,
           name,
           password: hashedPassword,
-          profilePicture: gender === "male" ? boyProfilePic : girlProfilePic,
+          profilePicture: gender === "female" ? girlProfilePic: boyProfilePic,
           gender,
         });
 
